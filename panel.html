@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+        <title>LAN Music Manager</title>
+
+
+        <!-- Styling -->
+        <style>
+            
+            /* All Elements */
+            * {
+                font-family: "Consolas";
+            }
+        
+            button, input, #file-upload-select {
+                border: none;
+                background-color: #ffffff00;
+                text-decoration: underline;
+                font-size: 14px;
+                cursor: pointer !important;
+            }
+
+            /* Alerts */
+            #alerts {
+                border: solid 1px #bbb;
+                margin-bottom: 10px;
+                padding: 8px;
+            }
+            .alert {
+                margin: 0px;
+                padding: 2px;
+                background-color: red;
+                color: white;
+            }
+
+            /* General Styling */
+            form {
+                padding: 10px;
+                border: solid 1px #bbb;
+                margin-bottom: 10px;
+            }
+
+            /* File List Entry */
+            #file-list-controls {
+                padding-bottom: 10px;
+            }
+            .file-list-entry-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                background-color: #eee;
+                height: 25px;
+                max-width: 1000px;
+                padding: 0;
+            }
+            .file-list-entry-text {
+                margin: 0;
+            }
+            .file-list-delete-upload-button {
+                padding-right: 10px;
+                color: red;
+            }
+
+
+        </style>
+
+    </head>
+    <body>
+
+        <!-- Alerts -->
+        {% if get_flashed_messages()|length > 0 %}
+            <div id="alerts">
+                {% for message in get_flashed_messages() %}
+                    <p class="alert">{{message}}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Media Control -->
+        <form id="media-control-form" action="/media" method="POST">
+
+            <!-- Manage Existing Music -->
+            <input type="submit" type="submit" name="start" value="Start">
+            <input type="submit" name="stop" value="Stop">
+            <input type="submit" name="forward" value="Skip">
+            <input type="submit" name="previous" value="Previous">
+
+            <input type="checkbox" name="random" value="random">
+            <label>Random Order</label>
+
+        </form>
+
+        <!-- Upload new files -->
+        <form id="file-upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+
+            <span id="file-upload-text">No file selected</span>
+
+            <span> | </span>
+
+            <input type="file" name="track" accept=".wav,.mp3" id="hidden-file-upload-select" hidden>
+            <label id="file-upload-select" for="hidden-file-upload-select">Select a File</label>
+            <input type="submit" name="file-upload-submit" value="Upload">     
+    
+        </form>
+
+        <!-- File List -->
+        <form id="file-list-form" action="/delete" method="POST">
+
+            <!-- Manage Existing Music -->
+            <div id="file-list-controls">
+                <input type="button" onclick="selectAllFiles()" value="Select All">
+                <input type="button" onclick="deselectAllFiles()" value="Deselect All">
+                <input type="submit" class="file-list-delete-upload-button" name="delete-upload" value="Delete Upload">
+            </div>
+
+            <!-- Generate an entry for every file downloaded -->
+            {% for file in file_list %}
+
+                <div class="file-list-entry-container">
+                    <input class="file-list-entry-check" type="checkbox" name="file-list-entry" value="{{file}}">
+                    <p class="file-list-entry-text">{{file}}</p>
+                </div>
+
+            {% endfor %}
+
+        </form>
+    </body>
+
+    <!-- Code -->
+    <script>
+        // This is some code I ripped from the internet to make the file select button be able to be styled
+        // it accesses a label that replaces the button and a span to show the file uploaded. Don't touch please
+        const realButton = document.getElementById('hidden-file-upload-select');
+        const chosenFile = document.getElementById('file-upload-text');
+        realButton.addEventListener('change', function(){
+            chosenFile.innerHTML = this.files[0].name
+        })
+
+        // File Control Scripts
+        function selectAllFiles()
+        {  
+            for (const checkbox of document.getElementsByName('file-list-entry')) {  
+                checkbox.checked = true;  
+            }  
+        }
+
+        function deselectAllFiles()
+        {
+            for (const checkbox of document.getElementsByName('file-list-entry')) {
+                checkbox.checked = false;
+            }
+        }
+    </script>
+
+</html>
