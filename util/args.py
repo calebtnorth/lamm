@@ -2,6 +2,9 @@
 # Read command line input and provide configuration
 # information for app.py and other modules
 
+from sys import argv
+from os.path import join, abspath, dirname
+
 class Arg:
     """
     Configuration variables
@@ -16,7 +19,10 @@ class Arg:
         global upload_path
 
         try:
-            with open(".upload", "r+") as file:
+            # Get the current path that the app file is in
+            path = abspath(join(dirname(argv[0]), ".upload"))
+
+            with open(path, "r") as file:
                 Arg.upload_path = file.read()
         except FileNotFoundError:
             print("[-] Create the .upload file first")
