@@ -10,8 +10,8 @@ LANMM runs off of the Flask framework to provide a web interface, utilizes Pytho
     - For **Windows**, make sure ffplay is on the PATH
     - For **Linux**, make sure ffplay is installed under /usr/bin
 - Create a folder somewhere to store uploaded music to
-- Copy the LAMNN repository into its own folder.
-- Create a `.upload` file in the root of the LAMNN repo containing *only* the absolute path to the upload folder created two steps ago
+- Copy the LANMM repository into its own folder.
+- Create a `.upload` file in the root of the LANMM repo containing *only* the absolute path to the upload folder created two steps ago
 
 From here, LANMM can be run with any WSGI, for example, [Gunicorn](https://gunicorn.org/).
 ```bash
