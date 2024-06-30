@@ -2,7 +2,6 @@
 # Read command line input and provide configuration
 # information for app.py and other modules
 
-from sys import argv
 from os.path import join, abspath, dirname
 
 class Arg:
@@ -20,7 +19,7 @@ class Arg:
 
         try:
             # Get the current path that the app file is in
-            path = abspath(join(dirname(argv[0]), ".upload"))
+            path = abspath(join(dirname(__path__), "../.upload"))
 
             with open(path, "r") as file:
                 Arg.upload_path = file.read()

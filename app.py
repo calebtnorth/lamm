@@ -6,8 +6,8 @@ from flask import (
     render_template_string, flash, redirect,    # Functions
     request                                     # Variables
 )
-from sys import argv
-from os import path, urandom
+from os import urandom
+from os.path import abspath, join, dirname
 from core import MediaManager
 from util import FileUtil
 
@@ -28,7 +28,7 @@ def home() -> str:
     # This is not exactly encouraged programming behavior but manually reading
     # the HTML template like this is easier and quicker than "proper" methods.
     # At this scale there is no real downside to doing it this way
-    path = path.abspath(path.join(path.dirname(argv[0]), "panel.html"))
+    path = abspath(join(dirname(__path__), "panel.html"))
     with open(path) as template:
         return render_template_string(
             template.read(),
