@@ -21,6 +21,8 @@ class MediaManager:
         queue = FileUtil.dump_uploads()
         if MediaManager.random_queue:
             shuffle(queue)
+        else:
+            sorted(queue)
 
         # Check if queue is empty
         if not queue:
