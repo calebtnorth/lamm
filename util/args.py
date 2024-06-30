@@ -19,10 +19,10 @@ class Arg:
 
         try:
             # Get the current path that the app file is in
-            path = abspath(join(dirname(__path__), "../.upload"))
+            path = abspath(join(dirname(__file__), "../.upload"))
 
             with open(path, "r") as file:
-                Arg.upload_path = file.read()
+                Arg.upload_path = file.read().strip()
         except FileNotFoundError:
             print("[-] Create the .upload file first")
             quit()

@@ -28,7 +28,7 @@ def home() -> str:
     # This is not exactly encouraged programming behavior but manually reading
     # the HTML template like this is easier and quicker than "proper" methods.
     # At this scale there is no real downside to doing it this way
-    path = abspath(join(dirname(__path__), "panel.html"))
+    path = abspath(join(dirname(__file__), "panel.html"))
     with open(path) as template:
         return render_template_string(
             template.read(),
@@ -81,7 +81,7 @@ def upload():
     new_track = request.files.get("track")
     track_name = new_track.filename
     new_track.save(
-        path.join(FileUtil.upload_path, track_name)
+        join(FileUtil.upload_path, track_name)
     )
 
     flash("Uploaded new track!")
