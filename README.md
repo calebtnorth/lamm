@@ -1,6 +1,6 @@
 # **L**ocal **A**rea **N**etwork **M**usic **M**anager
 ### What Is It
-LANMM is a web app for managing music from across the same network. Also provides the functionality to upload and delete media. It is optimal for retail or other physical storefronts where music is custom, infrequently changed, and frequently played.
+LANMM is a web app for managing music from across the same network. Also provides the functionality to upload and delete media. It is optimal for retail or other physical storefronts where music is custom, infrequently changed, and frequently played. It was created by request of my employe
 
 ### How LANMM Works
 LANMM runs off of the Flask framework to provide a web interface, utilizes Python's threading and subprocess modules to manage music, and uses [ffmpeg](https://www.ffmpeg.org/download.html) to play music.
@@ -18,3 +18,5 @@ From here, LANMM can be run with any WSGI, for example, [Gunicorn](https://gunic
 python -m gunicorn -b 0.0.0.0:8000 wsgi:app
 ```
 If running on **Linux**, ensure the firewall is open to whatever port LANMM is being run on so other devices on the network can see it.
+
+LANMM limits uploads to .wav and .mp3 but realistically supports any audio format that ffmpeg supports.
